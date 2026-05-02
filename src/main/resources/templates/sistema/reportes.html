@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes - Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-sistema.css}">
+</head>
+<body>
+
+<aside th:replace="~{sistema/sidebar :: sidebar('reportes')}"></aside>
+
+<main class="main-content">
+    <div class="card">
+        <h1>Indicadores del Sistema</h1>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-numero" th:text="${totalPacientes}">0</div>
+                <div class="kpi-label">👤 Pacientes</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-numero" th:text="${totalMedicos}">0</div>
+                <div class="kpi-label">👨‍⚕️ Médicos</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-numero" th:text="${totalCitas}">0</div>
+                <div class="kpi-label">📅 Citas Totales</div>
+            </div>
+            <div class="kpi-card kpi-verde">
+                <div class="kpi-numero" th:text="${citasConfirmadas}">0</div>
+                <div class="kpi-label">✅ Confirmadas</div>
+            </div>
+            <div class="kpi-card kpi-amarillo">
+                <div class="kpi-numero" th:text="${citasPendientes}">0</div>
+                <div class="kpi-label">⏳ Pendientes</div>
+            </div>
+        </div>
+
+        <!-- Barras visuales simples -->
+        <div style="margin-top: 40px;">
+            <h2 style="border-left:4px solid var(--secondary); padding-left:12px;">Citas por Mes (Ejemplo)</h2>
+            <div class="chart-container">
+                <div class="bar" style="height: 60%;"><span>180</span><div class="month-label">Abr</div></div>
+                <div class="bar" style="height: 85%;"><span>240</span><div class="month-label">May</div></div>
+                <div class="bar" style="height: 95%;"><span>280</span><div class="month-label">Jun</div></div>
+            </div>
+        </div>
+
+        <!-- Tabla de especialidades -->
+        <div style="margin-top: 60px;">
+            <h2 style="border-left:4px solid var(--secondary); padding-left:12px;">Especialidades Activas</h2>
+            <table>
+                <thead>
+                <tr><th>ID</th><th>Especialidad</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="e : ${especialidades}">
+                    <td th:text="${e.id}"></td>
+                    <td th:text="${e.nombre}"></td>
+                    <td th:text="${e.descripcion}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 25px;">📥 Descargar PDF</button>
+    </div>
+</main>
+</body>
+</html>

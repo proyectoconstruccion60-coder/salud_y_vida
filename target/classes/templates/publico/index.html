@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policlínico Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-publico.css}">
+</head>
+<body>
+
+<header class="header-publico">
+    <div class="logo"><h2>🏥 Salud y Vida</h2></div>
+    <nav>
+        <ul class="nav-publica">
+            <li><a href="javascript:void(0)" onclick="cambiarSeccion('main')">Inicio</a></li>
+            <li><a href="javascript:void(0)" onclick="cambiarSeccion('nosotros')">Nosotros</a></li>
+            <li><a href="javascript:void(0)" onclick="cambiarSeccion('publicidad')">Promociones</a></li>
+            <li><a href="javascript:void(0)" onclick="cambiarSeccion('equipo')">Staff Médico</a></li>
+            <li><a href="javascript:void(0)" onclick="cambiarSeccion('contacto')">Contacto</a></li>
+            <li><a th:href="@{/login}" class="btn-acceso">Acceso Personal</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="contenedor-principal">
+
+    <section id="main" class="seccion-intercambiable activa">
+        <div class="seccion-hero">
+            <h1>Tu salud es nuestra prioridad</h1>
+            <p>Atención médica de calidad y especialistas a tu disposición en Huancayo.</p>
+            <div class="hero-img">
+                <img src="https://via.placeholder.com/800x400?text=Bienvenidos+a+Salud+y+Vida" alt="Sede Huancayo">
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="seccion-intercambiable">
+        <div class="nosotros-contenido">
+            <h2>¿Por qué elegir "Salud y Vida"?</h2>
+            <p>Contamos con infraestructura moderna y procesos optimizados para tu bienestar.</p>
+            <ul class="lista-beneficios">
+                <li>✔️ <strong>Tecnología de Punta:</strong> Equipos médicos calibrados.</li>
+                <li>✔️ <strong>Cero Papel:</strong> Historiales clínicos digitales seguros.</li>
+                <li>✔️ <strong>Atención Humana:</strong> Personal altamente capacitado de la región Junín.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="publicidad" class="seccion-intercambiable">
+        <h2>Campañas y Promociones</h2>
+        <div class="promo-item">
+            <h3>🦷 Campaña Odontológica Escolar</h3>
+            <p>Revisión general + Limpieza con flúor por solo S/ 30.00.<br><i>Válido todo el mes de Abril.</i></p>
+        </div>
+        <hr class="divisor-promo">
+        <div class="promo-item">
+            <h3>💗 Chequeo Cardiológico Preventivo</h3>
+            <p>Consulta + Electrocardiograma con 20% de descuento.<br><i>Válido los días Martes y Jueves.</i></p>
+        </div>
+    </section>
+
+    <section id="equipo" class="seccion-intercambiable">
+        <h2>Conoce a Nuestros Especialistas</h2>
+        <div class="grid-equipo">
+            <div class="tarjeta-doctor">
+                <img src="https://via.placeholder.com/100?text=Dr" alt="Dr. Mendoza" class="foto-doctor">
+                <h3>Dr. Carlos Mendoza</h3>
+                <p class="especialidad-doc">Cardiología</p>
+            </div>
+            <div class="tarjeta-doctor">
+                <img src="https://via.placeholder.com/100?text=Dra" alt="Dra. Rojas" class="foto-doctor">
+                <h3>Dra. Ana Rojas</h3>
+                <p class="especialidad-doc">Pediatría General</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="seccion-intercambiable">
+        <h2>Nuestros canales de atención</h2>
+        <div class="info-contacto">
+            <p><strong>Dirección:</strong> Av. Principal San Carlos, Ciudad de Huancayo</p>
+            <p><strong>WhatsApp (Citas):</strong> +51 987 654 321</p>
+            <div class="contenedor-formulario">
+                <h3>Déjanos tu consulta o sugerencia</h3>
+                <div class="formulario-grid">
+                    <input type="text" placeholder="Tu Nombre">
+                    <input type="text" placeholder="WhatsApp / Correo">
+                </div>
+                <textarea class="txt-observaciones" rows="4" placeholder="Escribe aquí tus dudas u observaciones..."></textarea>
+                <button type="button" class="btn-enviar-publico">Enviar Mensaje</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function cambiarSeccion(id) {
+        document.querySelectorAll('.seccion-intercambiable').forEach(s => s.classList.remove('activa'));
+        const destino = document.getElementById(id);
+        if (destino) destino.classList.add('activa');
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+</html>

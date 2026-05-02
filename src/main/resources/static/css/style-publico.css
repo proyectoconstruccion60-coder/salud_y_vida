@@ -1,0 +1,221 @@
+/* --- VARIABLES GLOBALES --- */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --success-color: #27ae60;
+    --bg-light: #f4f7f6;
+    --white: #ffffff;
+    --text-dark: #333;
+    --text-muted: #7f8c8d;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+/* --- NAVEGACIÓN (HEADER) --- */
+.header-publico {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-publica {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 0;
+}
+
+.nav-publica a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-publica a:hover {
+    color: var(--accent-color);
+}
+
+.btn-acceso {
+    background-color: #2ecc71;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.btn-acceso:hover {
+    background-color: var(--success-color);
+}
+
+/* --- LÓGICA DE INTERCAMBIO DE SECCIONES (JS) --- */
+.seccion-intercambiable {
+    display: none; /* Oculto por defecto */
+}
+
+.seccion-intercambiable.activa {
+    display: block; /* Solo se muestra la sección activa */
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.contenedor-principal {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 80vh;
+}
+
+/* --- SECCIÓN HERO E INICIO --- */
+.seccion-hero {
+    text-align: center;
+}
+
+.hero-img img {
+    max-width: 100%;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* --- FORMULARIO DE CONTACTO (Antes en index.html) --- */
+.contenedor-formulario {
+    margin-top: 30px;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.formulario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.formulario-grid input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.formulario-grid input:focus {
+    border-color: var(--accent-color);
+}
+
+.txt-observaciones {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: none; /* Evita que el usuario deforme el cuadro */
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.btn-enviar-publico {
+    background-color: var(--success-color);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.btn-enviar-publico:hover {
+    background-color: #219150;
+}
+
+/* --- LOGIN (Extraído de login.html) --- */
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+.login-box {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.login-box h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-btn:hover {
+    background-color: #2980b9;
+}
+
+/* --- PROMOCIONES --- */
+.promo-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--accent-color);
+}
+
+.promo-item h3 {
+    margin: 0 0 10px 0;
+    color: var(--accent-color);
+}
+
+.divisor-promo {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}

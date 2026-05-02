@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar(paginaActiva)" class="sidebar">
+    <div class="sidebar-header">
+        <h2>Salud y Vida</h2>
+        <small>Gestión Hospitalaria</small>
+    </div>
+    <ul class="nav-links">
+        <li th:classappend="${paginaActiva == 'reserva'} ? 'active'">
+            <a th:href="@{/citas/reserva}">📅 Reservar Cita</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'gestion'} ? 'active'">
+            <a th:href="@{/citas/gestion}">📋 Gestión de Citas</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'pacientes'} ? 'active'">
+            <a th:href="@{/pacientes}">👤 Pacientes</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'medicos'} ? 'active'">
+            <a th:href="@{/medicos}">👨‍⚕️ Staff Médico</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'especialidades'} ? 'active'">
+            <a th:href="@{/especialidades}">⚙️ Especialidades</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'horarios'} ? 'active'">
+            <a th:href="@{/horarios}">🕐 Horarios</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'auditoria'} ? 'active'">
+            <a th:href="@{/auditoria}">🔍 Auditoría</a>
+        </li>
+        <li th:classappend="${paginaActiva == 'reportes'} ? 'active'">
+            <a th:href="@{/reportes}">📊 Reportes</a>
+        </li>
+    </ul>
+    <a th:href="@{/login}" class="btn-logout-sidebar">Cerrar Sesión</a>
+</aside>
+</body>
+</html>

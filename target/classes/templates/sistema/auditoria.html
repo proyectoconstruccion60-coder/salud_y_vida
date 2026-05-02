@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Auditoría - Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-sistema.css}">
+</head>
+<body>
+
+<aside th:replace="~{sistema/sidebar :: sidebar('auditoria')}"></aside>
+
+<main class="main-content">
+    <div class="card">
+        <h1>Registro de Auditoría del Sistema</h1>
+
+        <p style="color:#666; margin-top:-10px; margin-bottom:20px;">
+            Cada operación CRUD realizada en el sistema queda registrada automáticamente aquí.
+        </p>
+
+        <!-- BOTÓN que revela la tabla -->
+        <form th:action="@{/auditoria/buscar}" method="post">
+            <button type="submit" class="btn btn-primary">🔍 Ver Registro de Auditoría</button>
+        </form>
+
+        <!-- TABLA (solo si mostrarTabla = true) -->
+        <div th:if="${mostrarTabla}" class="tabla-animada" style="margin-top:25px;">
+            <h2 style="border-left:4px solid var(--secondary); padding-left:12px; color:var(--primary);">
+                Historial de Operaciones
+            </h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha / Hora</th>
+                    <th>Usuario</th>
+                    <th>Módulo</th>
+                    <th>Acción</th>
+                    <th>Detalle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="a : ${auditorias}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.fechaHora}"></td>
+                    <td th:text="${a.usuario}"></td>
+                    <td th:text="${a.modulo}"></td>
+                    <td>
+                        <span th:text="${a.accion}"
+                              th:classappend="${a.accion == 'CREAR'}    ? 'status confirmado' :
+                                             (${a.accion == 'ELIMINAR'} ? 'status cancelado'  : 'status pendiente')"
+                              class="status"></span>
+                    </td>
+                    <td th:text="${a.detalle}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(auditorias)}">
+                    <td colspan="6" style="text-align:center; color:#999; padding:30px;">
+                        No hay operaciones registradas aún.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

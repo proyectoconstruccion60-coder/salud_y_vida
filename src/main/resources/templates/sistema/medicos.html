@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Médico - Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-sistema.css}">
+</head>
+<body>
+
+<aside th:replace="~{sistema/sidebar :: sidebar('medicos')}"></aside>
+
+<main class="main-content">
+    <div class="card">
+        <h1>Gestión de Personal Médico</h1>
+
+        <div th:if="${exito}" class="alerta alerta-exito" th:text="${exito}"></div>
+
+        <form th:action="${modoEdicion} ? @{/medicos/actualizar} : @{/medicos/guardar}"
+              th:object="${medico}" method="post">
+
+            <input type="hidden" th:if="${modoEdicion}" th:field="*{cmp}">
+
+            <div class="form-grid-sistema">
+                <div class="form-group">
+                    <label>CMP:</label>
+                    <input type="text" th:field="*{cmp}" th:readonly="${modoEdicion}" placeholder="Ej: 54321">
+                </div>
+                <div class="form-group">
+                    <label>Nombres y Apellidos:</label>
+                    <input type="text" th:field="*{nombre}" placeholder="Ej: Dr. Carlos Mendoza">
+                </div>
+                <div class="form-group">
+                    <label>Especialidad:</label>
+                    <select th:field="*{especialidad}">
+                        <option th:each="e : ${especialidades}"
+                                th:value="${e.nombre}"
+                                th:text="${e.nombre}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Turno:</label>
+                    <select th:field="*{turno}">
+                        <option value="Mañana">Mañana</option>
+                        <option value="Tarde">Tarde</option>
+                        <option value="Noche">Noche</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="btn btn-success"
+                        th:text="${modoEdicion} ? 'Actualizar Médico' : 'Guardar Médico'"></button>
+                <a th:if="${modoEdicion}" th:href="@{/medicos}" class="btn btn-edit">Cancelar</a>
+            </div>
+        </form>
+
+        <!-- BOTÓN que revela la tabla -->
+        <div style="margin-top: 25px;">
+            <form th:action="@{/medicos/buscar}" method="post">
+                <button type="submit" class="btn btn-primary">🔍 Ver Lista de Médicos</button>
+            </form>
+        </div>
+
+        <!-- TABLA (solo si mostrarTabla = true) -->
+        <div th:if="${mostrarTabla}" class="tabla-animada">
+            <h2 style="margin-top:30px; color:var(--primary); border-left:4px solid var(--secondary); padding-left:12px;">
+                Personal Médico Registrado
+            </h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>CMP</th>
+                    <th>Médico</th>
+                    <th>Especialidad</th>
+                    <th>Turno</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="m : ${medicos}">
+                    <td th:text="${m.cmp}"></td>
+                    <td th:text="${m.nombre}"></td>
+                    <td th:text="${m.especialidad}"></td>
+                    <td th:text="${m.turno}"></td>
+                    <td>
+                        <a th:href="@{/medicos/editar/{cmp}(cmp=${m.cmp})}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{/medicos/eliminar/{cmp}(cmp=${m.cmp})}"
+                           class="btn btn-delete"
+                           onclick="return confirm('¿Eliminar este médico?')">X</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

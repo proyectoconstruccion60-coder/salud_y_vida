@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes - Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-sistema.css}">
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside th:replace="~{sistema/sidebar :: sidebar('pacientes')}"></aside>
+
+<main class="main-content">
+    <section class="section">
+        <div class="card">
+            <h1>Gestión de Pacientes</h1>
+
+            <!-- Alertas -->
+            <div th:if="${exito}" class="alerta alerta-exito" th:text="${exito}"></div>
+            <div th:if="${error}"  class="alerta alerta-error"  th:text="${error}"></div>
+
+            <!-- ===== FORMULARIO REGISTRO / EDICIÓN ===== -->
+            <form th:action="${modoEdicion} ? @{/pacientes/actualizar} : @{/pacientes/guardar}"
+                  th:object="${paciente}" method="post">
+
+                <input type="hidden" th:if="${modoEdicion}" th:field="*{dni}">
+
+                <div class="form-grid-sistema">
+                    <div class="form-group">
+                        <label>DNI:</label>
+                        <input type="text" th:field="*{dni}" maxlength="8"
+                               th:readonly="${modoEdicion}" placeholder="Ej: 72145632">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres y Apellidos:</label>
+                        <input type="text" th:field="*{nombre}" placeholder="Ej: Juan Pérez Miranda">
+                    </div>
+                    <div class="form-group">
+                        <label>Celular:</label>
+                        <input type="text" th:field="*{celular}" placeholder="Ej: 987654321">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo:</label>
+                        <input type="email" th:field="*{correo}" placeholder="correo@ejemplo.com">
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-success"
+                            th:text="${modoEdicion} ? 'Actualizar Paciente' : '+ Registrar Paciente'">
+                    </button>
+                    <a th:if="${modoEdicion}" th:href="@{/pacientes}" class="btn btn-edit">Cancelar</a>
+                </div>
+            </form>
+
+            <!-- ===== BOTÓN QUE REVELA LA TABLA ===== -->
+            <div style="margin-top: 25px;">
+                <form th:action="@{/pacientes/buscar}" method="post">
+                    <button type="submit" class="btn btn-primary">
+                        🔍 Ver Lista de Pacientes
+                    </button>
+                </form>
+            </div>
+
+            <!-- ===== TABLA (solo aparece si mostrarTabla = true) ===== -->
+            <div th:if="${mostrarTabla}" class="tabla-animada">
+                <h2 style="margin-top:30px; color: var(--primary); border-left: 4px solid var(--secondary); padding-left:12px;">
+                    Registros de Pacientes
+                </h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Paciente</th>
+                        <th>Celular</th>
+                        <th>Correo</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${pacientes}">
+                        <td th:text="${p.dni}"></td>
+                        <td th:text="${p.nombre}"></td>
+                        <td th:text="${p.celular}"></td>
+                        <td th:text="${p.correo}"></td>
+                        <td>
+                            <a th:href="@{/pacientes/editar/{dni}(dni=${p.dni})}"
+                               class="btn btn-edit">Editar</a>
+                            <a th:href="@{/pacientes/eliminar/{dni}(dni=${p.dni})}"
+                               class="btn btn-delete"
+                               onclick="return confirm('¿Eliminar este paciente?')">X</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pacientes)}">
+                        <td colspan="5" style="text-align:center; color:#999;">No hay pacientes registrados.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

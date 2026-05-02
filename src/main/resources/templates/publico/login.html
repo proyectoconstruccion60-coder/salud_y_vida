@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso al Sistema - Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-publico.css}">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box">
+        <h2>Acceso Restringido</h2>
+        <p style="color:#7f8c8d; font-size:14px;">Solo personal autorizado</p>
+        <div>
+            <input type="text" placeholder="Usuario (DNI)">
+            <input type="password" placeholder="Contraseña">
+            <a th:href="@{/citas/reserva}" class="login-btn" style="display:block; text-align:center; text-decoration:none; padding:12px;">
+                Ingresar al Sistema
+            </a>
+        </div>
+        <br>
+        <a th:href="@{/}" style="color:#3498db; text-decoration:none; font-size:13px;">← Volver al Inicio</a>
+    </div>
+</div>
+</body>
+</html>

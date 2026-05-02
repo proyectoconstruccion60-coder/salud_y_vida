@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Horarios - Salud y Vida</title>
+    <link rel="stylesheet" th:href="@{/css/style-sistema.css}">
+</head>
+<body>
+
+<aside th:replace="~{sistema/sidebar :: sidebar('horarios')}"></aside>
+
+<main class="main-content">
+    <div class="card">
+        <h1>Gestión de Horarios Médicos</h1>
+
+        <div th:if="${exito}" class="alerta alerta-exito" th:text="${exito}"></div>
+
+        <!-- FORMULARIO -->
+        <form th:action="${modoEdicion} ? @{/horarios/actualizar} : @{/horarios/guardar}"
+              th:object="${horario}" method="post">
+
+            <input type="hidden" th:if="${modoEdicion}" th:field="*{id}">
+
+            <div class="form-grid-sistema">
+                <div class="form-group">
+                    <label>Médico:</label>
+                    <select th:field="*{medico}">
+                        <option value="">— Seleccione médico —</option>
+                        <option th:each="m : ${medicos}"
+                                th:value="${m.nombre}"
+                                th:text="${m.nombre}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Día de la Semana:</label>
+                    <select th:field="*{diaSemana}">
+                        <option value="Lunes">Lunes</option>
+                        <option value="Martes">Martes</option>
+                        <option value="Miércoles">Miércoles</option>
+                        <option value="Jueves">Jueves</option>
+                        <option value="Viernes">Viernes</option>
+                        <option value="Sábado">Sábado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Hora Inicio:</label>
+                    <input type="time" th:field="*{horaInicio}">
+                </div>
+                <div class="form-group">
+                    <label>Hora Fin:</label>
+                    <input type="time" th:field="*{horaFin}">
+                </div>
+                <div class="form-group">
+                    <label>Sede:</label>
+                    <input type="text" th:field="*{sede}" placeholder="Ej: Huancayo Centro">
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="btn btn-success"
+                        th:text="${modoEdicion} ? 'Actualizar Horario' : '+ Registrar Horario'"></button>
+                <a th:if="${modoEdicion}" th:href="@{/horarios}" class="btn btn-edit">Cancelar</a>
+            </div>
+        </form>
+
+        <!-- BOTÓN que revela la tabla -->
+        <div style="margin-top: 25px;">
+            <form th:action="@{/horarios/buscar}" method="post">
+                <button type="submit" class="btn btn-primary">🔍 Ver Horarios Registrados</button>
+            </form>
+        </div>
+
+        <!-- TABLA (solo si mostrarTabla = true) -->
+        <div th:if="${mostrarTabla}" class="tabla-animada" style="margin-top:25px;">
+            <h2 style="border-left:4px solid var(--secondary); padding-left:12px; color:var(--primary);">
+                Horarios Registrados
+            </h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Médico</th>
+                    <th>Día</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Sede</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="h : ${horarios}">
+                    <td th:text="${h.id}"></td>
+                    <td th:text="${h.medico}"></td>
+                    <td th:text="${h.diaSemana}"></td>
+                    <td th:text="${h.horaInicio}"></td>
+                    <td th:text="${h.horaFin}"></td>
+                    <td th:text="${h.sede}"></td>
+                    <td>
+                        <a th:href="@{/horarios/editar/{id}(id=${h.id})}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{/horarios/eliminar/{id}(id=${h.id})}"
+                           class="btn btn-delete"
+                           onclick="return confirm('¿Eliminar este horario?')">X</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(horarios)}">
+                    <td colspan="7" style="text-align:center; color:#999; padding:30px;">
+                        No hay horarios registrados aún. Use el formulario para agregar.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>
